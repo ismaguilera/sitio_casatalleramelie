@@ -1,0 +1,224 @@
+/* Estilos generales básicos inspirados en el folleto y la plantilla */
+body {
+    font-family: 'Open Sans', sans-serif; /* Fuente más amigable */
+    margin: 0;
+    padding: 0;
+    color: #4A5568; /* Gris oscuro para mejor legibilidad */
+    line-height: 1.7;
+    background-color: #FDFAF6; /* Un blanco hueso muy sutil para el fondo general */
+}
+
+h1 {
+    color: #333;
+}
+
+.header-hero {
+    background: linear-gradient(135deg, rgba(255,192,203,0.85) 0%, rgba(173,216,230,0.85) 100%), url('https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center;
+    background-size: cover;
+    color: #2D3748;
+    padding: clamp(60px, 15vh, 100px) 20px; /* Padding adaptable */
+    text-align: center;
+}
+
+.header-hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2em, 5vw, 3em); /* Tamaño de fuente adaptable */
+    margin-bottom: 15px;
+    color: #5D3A9B; 
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+}
+
+.header-hero p {
+    font-size: clamp(1em, 2.5vw, 1.3em);
+    margin-bottom: 35px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3E4C59; /* Un poco más oscuro para mejor contraste */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 28px;
+    background-color: #40E0D0; /* Turquesa del folleto */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    margin: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cta-button:hover {
+    background-color: #36c4b5; 
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.cta-button.secondary {
+    background-color: #FF69B4; /* Rosa fuerte del folleto */
+}
+
+.cta-button.secondary:hover {
+    background-color: #f750a0; 
+}
+
+.section {
+    padding: clamp(50px, 10vh, 80px) 20px;
+    text-align: center;
+}
+
+.section.alternate {
+    background-color: #F0F8FF; 
+}
+
+.section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8em, 4vw, 2.5em); 
+    margin-bottom: 50px;
+    color: #5D3A9B; 
+    font-weight: 700;
+}
+
+.workshop-grid {
+    display: grid; /* Cambiado a grid para mejor control */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+    gap: 30px; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.workshop-item {
+    background-color: white;
+    border: 1px solid #E2E8F0; 
+    border-radius: 12px; 
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Para alinear contenido verticalmente */
+}
+
+.workshop-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.workshop-item img {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    margin-bottom: 20px;
+}
+
+.workshop-item h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #FF69B4; 
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.workshop-item p {
+    font-size: 0.95em;
+    color: #4A5568;
+    flex-grow: 1; /* Para que el texto ocupe espacio y los botones se alineen abajo */
+}
+
+.workshop-item .cta-button-small {
+    padding: 8px 16px;
+    font-size: 0.85em;
+    margin-top: 15px;
+    align-self: center; /* Centra el botón */
+}
+
+.testimonials {
+    background-color: #E6FFFA; 
+}
+
+.testimonial-item {
+    max-width: 650px; /* Un poco más ancho */
+    margin: 0 auto 25px auto;
+    padding: 25px; /* Más padding */
+    background-color: white;
+    border-radius: 10px; /* Bordes más suaves */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-style: italic;
+}
+
+.testimonial-item span {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #5D3A9B; 
+}
+
+.footer {
+    background-color: #5D3A9B; 
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9em;
+}
+
+.footer p {
+    margin: 8px 0; /* Más espaciado */
+}
+
+.footer a {
+    color: #FFC0CB; /* Rosa claro para enlaces en footer */
+    text-decoration: underline;
+}
+
+.footer a:hover {
+    color: #F0F8FF; /* Celeste muy pálido al hacer hover */
+}
+
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25D366; 
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px; 
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.25);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #1DAE54; 
+}
+
+.whatsapp-float img { /* Ya no se usa img, se usa SVG inline */
+    width: 32px; 
+    height: 32px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-hero h1 { font-size: clamp(1.8em, 6vw, 2.2em); }
+    .header-hero p { font-size: clamp(0.9em, 2.8vw, 1.1em); }
+    .section h2 { font-size: clamp(1.5em, 5vw, 2em); }
+    .workshop-grid { grid-template-columns: 1fr; /* Una columna en móviles */ }
+    .workshop-item { width: 90%; max-width: 350px; margin-left:auto; margin-right:auto; }
+}
+
+ @media (max-width: 480px) {
+    .cta-button { padding: 12px 22px; font-size: 0.9em; }
+     .header-hero h1 { font-size: clamp(1.5em, 7vw, 1.8em); }
+    .header-hero p { font-size: clamp(0.8em, 3.5vw, 1em); }
+    .section h2 { font-size: clamp(1.3em, 6vw, 1.8em); }
+}
