@@ -5,7 +5,7 @@ body {
     padding: 0;
     color: #4A5568; /* Gris oscuro para mejor legibilidad */
     line-height: 1.7;
-    background-color: #FDFAF6; /* Un blanco hueso muy sutil para el fondo general */
+    background-color: #F8F4F9; /* Un blanco hueso muy sutil para el fondo general */
     font-weight: 400;
 }
 
@@ -23,11 +23,11 @@ h1 {
 
 .header-hero h1 {
     /* font-family: 'Montserrat', sans-serif; */
-    font-family: 'Nunito', cursive;
+    font-family: 'Nunito', cursive; /* Ensure this font is used */
     font-size: clamp(2em, 5vw, 3em); /* Tamaño de fuente adaptable */
     margin-bottom: 15px;
-    color: #5D3A9B; 
-    font-weight: 800;
+    color: #5D3A9B; /* Set the color to the deep purple from the flyer */
+    font-weight: 800; /* Keep existing font-weight */
     text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
 }
 
@@ -43,7 +43,7 @@ h1 {
 .cta-button {
     display: inline-block;
     padding: 14px 28px;
-    background-color: #40E0D0; /* Turquesa del folleto */
+    background-color: #40E0D0; /* Ensure background color is #40E0D0 */
     color: white;
     text-decoration: none;
     border-radius: 30px;
@@ -51,17 +51,17 @@ h1 {
     margin: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* Ensure Montserrat font is used */
 }
 
 .cta-button:hover {
-    background-color: #36c4b5; 
+    background-color: #36c4b5; /* Set hover background color to #36c4b5 */
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 .cta-button.secondary {
-    background-color: #FF69B4; /* Rosa fuerte del folleto */
+    background-color: #FF69B4; /* Ensure secondary background color is #FF69B4 */
 }
 
 .cta-button.secondary:hover {
@@ -80,15 +80,15 @@ h1 {
 .section h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: clamp(1.8em, 4vw, 2.5em); 
-    margin-bottom: 50px;
-    color: #5D3A9B; 
+    margin-bottom: 30px; /* Reduced bottom margin */
+    color: #FF69B4; 
     font-weight: 700;
 }
 
 .workshop-grid {
     display: grid; /* Cambiado a grid para mejor control */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
-    gap: 30px; 
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -96,7 +96,7 @@ h1 {
 .workshop-item {
     background-color: white;
     border: 1px solid #E2E8F0; 
-    border-radius: 12px; 
+    border-radius: 12px;
     padding: 25px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -144,8 +144,8 @@ h1 {
 
 .testimonial-item {
     max-width: 650px; /* Un poco más ancho */
-    margin: 0 auto 25px auto;
-    padding: 25px; /* Más padding */
+    margin: 0 auto 30px auto; /* Increased bottom margin */
+    padding: 20px; /* More padding */
     background-color: white;
     border-radius: 10px; /* Bordes más suaves */
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -226,7 +226,12 @@ h1 {
 }
 
 /* Estilos para la sección Nosotros */
+.section p {
+    margin-bottom: 15px; /* Add bottom margin to paragraphs within sections */
+}
+
 .nosotros-parrafo {
+    margin-bottom: 15px; /* Adjusted margin-bottom */
     max-width: 700px;
     margin: 0 auto 20px auto;
 }
@@ -239,10 +244,29 @@ h1 {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+
 /* Estilos para la sección Talleres */
 .talleres-ver-todos {
     margin-top: 40px;
     background-color: #87CEEB;
+}
+
+/* Responsive adjustments */
+
+/* Medium screens */
+@media (min-width: 769px) and (max-width: 1199px) {
+    .section {
+        padding: 60px 30px; /* Adjust padding for medium screens */
+    }
+
+    .section h2 {
+        font-size: clamp(2em, 4vw, 2.2em); /* Adjust heading size */
+        margin-bottom: 40px;
+    }
+
+    .workshop-grid {
+        gap: 20px; /* Adjust gap for medium screens */
+    }
 }
 
 /* Responsive adjustments */
