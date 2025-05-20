@@ -1,11 +1,12 @@
 /* Estilos generales básicos inspirados en el folleto y la plantilla */
 body {
-    font-family: 'Open Sans', sans-serif; /* Fuente más amigable */
+    font-family: 'Open Sans', Arial, sans-serif; /* Fuente más amigable */
     margin: 0;
     padding: 0;
     color: #4A5568; /* Gris oscuro para mejor legibilidad */
     line-height: 1.7;
     background-color: #FDFAF6; /* Un blanco hueso muy sutil para el fondo general */
+    font-weight: 400;
 }
 
 h1 {
@@ -21,11 +22,12 @@ h1 {
 }
 
 .header-hero h1 {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Nunito', cursive;
     font-size: clamp(2em, 5vw, 3em); /* Tamaño de fuente adaptable */
     margin-bottom: 15px;
     color: #5D3A9B; 
-    font-weight: 700;
+    font-weight: 800;
     text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
 }
 
@@ -120,6 +122,7 @@ h1 {
     color: #FF69B4; 
     margin-bottom: 10px;
     font-size: 1.4em;
+    font-weight: 700;
 }
 
 .workshop-item p {
@@ -155,6 +158,21 @@ h1 {
     font-weight: bold;
     margin-top: 10px;
     color: #5D3A9B; 
+}
+
+.flyer-main-title-style { /* Para replicar "Casa Taller Amelie" si fuera texto plano */
+    font-family: 'Nunito', cursive;
+    font-weight: 800;
+}
+
+.flyer-subtitle-style { /* Para replicar "After School", "Talleres:", "Valores:" */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.flyer-bodytext-style { /* Para replicar listas y detalles */
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 400;
 }
 
 .footer {
@@ -205,6 +223,26 @@ h1 {
 .whatsapp-float img { /* Ya no se usa img, se usa SVG inline */
     width: 32px; 
     height: 32px;
+}
+
+/* Estilos para la sección Nosotros */
+.nosotros-parrafo {
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+}
+
+.nosotros-imagen {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Estilos para la sección Talleres */
+.talleres-ver-todos {
+    margin-top: 40px;
+    background-color: #87CEEB;
 }
 
 /* Responsive adjustments */
