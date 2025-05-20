@@ -13,11 +13,106 @@ h1 {
     color: #333;
 }
 
+.main-nav {
+    background-color: #fff; /* Color de fondo blanco */
+    padding: 10px 20px;
+    position: fixed; /* Fija la barra en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: top 0.3s; /* Para futuras animaciones al hacer scroll */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-family: 'Nunito', cursive;
+    font-size: 1.5em;
+    color: #5D3A9B; /* Morado del flyer */
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu li:first-child {
+    margin-left: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4A5568; /* Gris oscuro */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active { /* Estilo para el enlace activo */
+    background-color: #40E0D0; /* Turquesa de los botones CTA */
+    color: white;
+}
+
+.nav-toggle { /* Estilos básicos para el botón hamburger */
+    display: none; /* Oculto en escritorio */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #5D3A9B;
+    position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    background-color: #5D3A9B;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    bottom: -8px;
+}
+
 .header-hero {
     background: linear-gradient(135deg, rgba(255,192,203,0.85) 0%, rgba(173,216,230,0.85) 100%), url('https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center;
     background-size: cover;
     color: #2D3748;
     padding: clamp(60px, 15vh, 100px) 20px; /* Padding adaptable */
+    padding-top: calc(clamp(60px, 15vh, 100px) + 60px); /* 60px es la altura aproximada de la nav */
     text-align: center;
 }
 
@@ -251,6 +346,212 @@ h1 {
     background-color: #87CEEB;
 }
 
+.carousel-container {
+    position: relative;
+    max-width: 800px; /* Ajusta según necesites */
+    margin: 20px auto;
+    overflow: hidden; /* Esencial para que solo se vea un item a la vez */
+    border-radius: 8px; /* Opcional: para bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.carousel-items {
+    display: flex; /* Permite que los items estén en línea */
+    transition: transform 0.5s ease-in-out; /* Animación de deslizamiento */
+    /* No se necesita width aquí si cada item tiene width 100% */
+}
+
+.carousel-item {
+    min-width: 100%; /* Cada item ocupa todo el ancho del contenedor */
+    display: none; /* Ocultar todos por defecto */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    max-height: 500px; /* Ajusta la altura máxima de las imágenes del carrusel */
+    vertical-align: middle; /* Por si acaso hay problemas de alineación */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item.active {
+    display: block; /* Mostrar solo el item activo */
+    opacity: 1;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 24px; /* Tamaño de las flechas */
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 50%; /* Hace los botones redondos */
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-button.prev {
+    left: 15px;
+}
+
+.carousel-button.next {
+    right: 15px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px; /* Espacio entre indicadores */
+    z-index: 100;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active,
+.indicator:hover {
+    background-color: white;
+}
+
+/* Para evitar que el texto de los botones se seleccione */
+.carousel-button::selection { background: transparent; }
+.carousel-button::-moz-selection { background: transparent; }
+
+/* --- Estilos Carrusel Testimonios --- */
+.testimonial-carousel-container {
+    position: relative;
+    max-width: 1000px; /* Puede ser más ancho para dos testimonios */
+    margin: 30px auto;
+    overflow: hidden;
+    padding: 0 50px; /* Espacio para los botones de navegación si están fuera */
+}
+
+.testimonial-carousel-items {
+    display: flex; /* Para el efecto de slide si se implementara así */
+    /* La transición se maneja por JS mostrando/ocultando slides */
+}
+
+.testimonial-slide {
+    min-width: 100%; /* Cada slide ocupa el ancho del contenedor */
+    display: none; /* Ocultar todos los slides por defecto */
+    flex-direction: row; /* Para alinear los dos testimonios */
+    justify-content: space-around; /* Espacio entre los dos testimonios */
+    gap: 20px; /* Espacio entre los dos testimonios */
+    align-items: stretch; /* Para que ambos testimonios tengan la misma altura si varían en contenido */
+}
+
+.testimonial-slide.active {
+    display: flex; /* Mostrar el slide activo */
+}
+
+/* Ajustar el tamaño de los items de testimonio dentro del carrusel */
+.testimonial-slide .testimonial-item {
+    width: calc(50% - 10px); /* 50% menos la mitad del gap */
+    margin-bottom: 0; /* Quitar el margen inferior que tenían antes */
+    box-sizing: border-box;
+    display: flex; /* Para alinear contenido interno si es necesario */
+    flex-direction: column; /* Alinear texto y autor verticalmente */
+}
+
+.testimonial-slide .testimonial-item p {
+    flex-grow: 1; /* Para que el texto ocupe el espacio disponible */
+}
+
+
+/* Reutilizar y ajustar botones y indicadores del carrusel anterior si es posible,
+   o definir nuevos si necesitan ser muy diferentes.
+   Aquí se asume que pueden compartir estilos con .carousel-button y .indicator
+   pero con selectores más específicos si es necesario.
+*/
+
+.testimonial-carousel-container .carousel-button.prev {
+    left: 10px; /* Ajustar posición si es necesario */
+}
+
+.testimonial-carousel-container .carousel-button.next {
+    right: 10px; /* Ajustar posición si es necesario */
+}
+
+.testimonial-carousel-container .carousel-indicators {
+    bottom: 5px; /* Un poco más cerca del fondo */
+}
+
+.map-responsive-container {
+    overflow:hidden;
+    padding-bottom:10%; /* Proporción 16:9 (para 4:3 usa 75%) */
+    position:relative;
+    height:0;
+    margin: 20px auto; /* Centrar y dar espacio */
+    max-width: 500px; /* Limitar el ancho máximo */
+    max-height: 200px; /* Limitar la altura máxima */
+}
+
+.map-responsive-container iframe {
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+    border-radius: 8px; /* Opcional: para bordes redondeados */
+}
+
+/* Ajustes para que el h2 tenga espacio si el mapa es lo único en la sección */
+#ubicacion h2 {
+    margin-bottom: 20px;
+}
+.collapsed-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Número de líneas a mostrar antes de cortar */
+    -webkit-box-orient: vertical;
+    /* Fallback para navegadores que no soportan -webkit-line-clamp (muestra X altura) */
+    max-height: calc(1.7em * 4); /* line-height * número de líneas */
+    /* La transición puede ser complicada con max-height: auto */
+}
+
+.expanded {
+    -webkit-line-clamp: unset;
+    max-height: none; /* O un valor suficientemente grande como 1000px si la transición es deseada */
+    overflow: visible;
+}
+
+.read-more-btn {
+    display: block; /* O inline-block según tu diseño */
+    margin-top: 10px;
+    margin-bottom: 15px; /* Para separar del siguiente elemento */
+    padding: 8px 15px;
+    background-color: #5D3A9B; /* Morado del flyer */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background-color: #4A2E8B; /* Un morado más oscuro */
+}
 /* Responsive adjustments */
 
 /* Medium screens */
@@ -276,6 +577,42 @@ h1 {
     .section h2 { font-size: clamp(1.5em, 5vw, 2em); }
     .workshop-grid { grid-template-columns: 1fr; /* Una columna en móviles */ }
     .workshop-item { width: 90%; max-width: 350px; margin-left:auto; margin-right:auto; }
+    .nav-menu {
+        display: none; /* Ocultar menú en móviles por defecto */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%; /* Se posiciona justo debajo de la barra de nav */
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 10px 0;
+    }
+
+    .nav-menu.active { /* Cuando el menú está abierto */
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .nav-toggle {
+        display: block; /* Mostrar botón hamburger en móviles */
+    }
+    .testimonial-slide {
+        flex-direction: column; /* Testimonios uno debajo del otro */
+        align-items: center; /* Centrar el testimonio único */
+    }
+    .testimonial-slide .testimonial-item {
+        width: 90%; /* Que el testimonio ocupe más ancho */
+        max-width: 500px; /* Pero no demasiado */
+        margin-bottom: 20px; /* Espacio si hay dos en el slide (aunque aquí se mostrará uno) */
+    }
+    .testimonial-slide .testimonial-item:last-child {
+        margin-bottom: 0;
+    }
 }
 
  @media (max-width: 480px) {
@@ -283,4 +620,19 @@ h1 {
      .header-hero h1 { font-size: clamp(1.5em, 7vw, 1.8em); }
     .header-hero p { font-size: clamp(0.8em, 3.5vw, 1em); }
     .section h2 { font-size: clamp(1.3em, 6vw, 1.8em); }
+    .testimonial-carousel-container {
+        padding: 0 10px; /* Menos padding para botones */
+    }
+    .testimonial-carousel-container .carousel-button {
+        padding: 8px 12px;
+        font-size: 20px;
+        width: 35px;
+        height: 35px;
+    }
+    .testimonial-carousel-container .carousel-button.prev {
+        left: 5px;
+    }
+    .testimonial-carousel-container .carousel-button.next {
+        right: 5px;
+    }
 }
