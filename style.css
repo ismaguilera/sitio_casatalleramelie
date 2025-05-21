@@ -270,7 +270,7 @@ h1 {
     font-weight: 400;
 }
 
-.footer {
+ .footer {
     background-color: #5D3A9B; 
     color: white;
     text-align: center;
@@ -289,6 +289,73 @@ h1 {
 
 .footer a:hover {
     color: #F0F8FF; /* Celeste muy pálido al hacer hover */
+} */
+
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    text-align: left;
+}
+.footer-contact-info, .footer-form {
+    flex: 1;
+    min-width: 280px; /* Para que no se aplasten demasiado */
+}
+.footer-contact-info h3, .footer-form h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #FFC0CB;
+}
+.footer-contact-info p {
+    margin-bottom: 10px;
+}
+.footer-contact-info .icon {
+    color: #FFC0CB;
+}
+.footer-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.footer-form input[type="text"],
+.footer-form input[type="email"],
+.footer-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+.footer-form textarea {
+    resize: vertical;
+}
+.footer-form .cta-button {
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 0;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.footer a, .footer .footer-link {
+    color: #FFC0CB; 
+    text-decoration: underline;
+}
+
+.footer a:hover, .footer .footer-link:hover {
+    color: #F0F8FF; 
 }
 
 .whatsapp-float {
@@ -321,14 +388,13 @@ h1 {
 }
 
 /* Estilos para la sección Nosotros */
-.section p {
-    margin-bottom: 15px; /* Add bottom margin to paragraphs within sections */
-}
 
-.nosotros-parrafo {
-    margin-bottom: 15px; /* Adjusted margin-bottom */
+.section p.nosotros-parrafo { /* Más especificidad */
+    text-align: center;
+    margin-bottom: 15px; 
     max-width: 700px;
-    margin: 0 auto 20px auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nosotros-imagen {
@@ -496,7 +562,7 @@ h1 {
 
 .map-responsive-container {
     overflow:hidden;
-    padding-bottom:10%; /* Proporción 16:9 (para 4:3 usa 75%) */
+    padding-bottom:20%; /* Proporción 16:9 (para 4:3 usa 75%) */
     position:relative;
     height:0;
     margin: 20px auto; /* Centrar y dar espacio */
@@ -527,6 +593,47 @@ h1 {
     /* La transición puede ser complicada con max-height: auto */
 }
 
+.collapsible-trigger {
+    cursor: pointer;
+    position: relative; /* Para el pseudo-elemento del indicador */
+    padding-right: 25px; /* Espacio para el indicador */
+    transition: color 0.3s ease; /* Transición para el color del h3 si lo cambias al expandir */
+}
+
+.collapsible-trigger::after {
+    content: '\f078'; /* Icono de flecha hacia abajo de Font Awesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.3s ease;
+    font-size: 0.8em; /* Ajustar tamaño del indicador */
+}
+
+.collapsible-trigger.expanded::after {
+    transform: translateY(-50%) rotate(-180deg); /* Flecha hacia arriba */
+}
+
+.collapsible-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease-out, visibility 0s 0.3s;
+    /* Ajusta la curva de bezier para un cierre más rápido si es necesario */
+}
+
+.collapsible-content.visible {
+    max-height: 3000px; /* Un valor suficientemente grande para el contenido */
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 1s cubic-bezier(1, 0, 1, 0), opacity 0.5s ease-in 0.2s, visibility 0s 0s;
+    /* Ajusta la curva de bezier para una apertura más suave y un delay en la opacidad */
+    /* padding-top: 10px; /* Opcional: un pequeño espacio cuando se expande */
+}
+
 .expanded {
     -webkit-line-clamp: unset;
     max-height: none; /* O un valor suficientemente grande como 1000px si la transición es deseada */
@@ -552,9 +659,56 @@ h1 {
 .read-more-btn:hover {
     background-color: #4A2E8B; /* Un morado más oscuro */
 }
+
+.legal-section {
+    /* ... tus estilos existentes para .legal-section ... */
+    max-height: 0; /* Inicialmente oculto y sin ocupar espacio vertical */
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, visibility 0s 0.5s;
+    /* La transición de visibility es para que no sea interactuable mientras está oculto */
+    margin-top: 0 !important; /* Evitar que el padding-top inicial tenga efecto cuando está oculto */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    border-top: none; /* Opcional: si tenías un borde que no quieres ver cuando está oculto */
+}
+.legal-section.visible {
+    max-height: 2000px; /* Un valor suficientemente grande para acomodar el contenido */
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, visibility 0s 0s;
+    /* Restaura el padding cuando es visible */
+    padding-top: clamp(50px, 10vh, 80px) !important; /* El padding que tenías antes o uno adecuado */
+    padding-bottom: clamp(50px, 10vh, 80px) !important;
+    margin-top: 20px !important; /* Opcional: un margen superior cuando se muestra */
+    /* border-top: 1px solid #eee; Opcional: un separador visual */
+}
+.legal-section h2 {
+    text-align: center;
+}
+.legal-section ol, .legal-section ul {
+    margin-left: 20px; /* Indentación para listas */
+}
+.legal-section p, .legal-section li {
+    margin-bottom: 1em;
+}
 /* Responsive adjustments */
 
 /* Medium screens */
+
+@media (prefers-reduced-motion: reduce) {
+    .collapsible-trigger::after,
+    .collapsible-content,
+    .collapsible-content.visible {
+        transition-duration: 0.01ms !important;
+    }
+    .legal-section, .legal-section.visible {
+        transition-duration: 0.01ms !important;
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1199px) {
     .section {
         padding: 60px 30px; /* Adjust padding for medium screens */

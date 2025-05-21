@@ -171,6 +171,146 @@ document.addEventListener('DOMContentLoaded', () => {
             showTestimonialSlide(currentIndex); // Mostrar el primer slide
         }
     }
+    // --- START: Legal Sections Toggle ---
+    const legalToggleLinks = document.querySelectorAll('.legal-toggle');
+    const legalSections = document.querySelectorAll('.legal-section');
+    let currentlyVisibleLegalSection = null; // Para rastrear la sección visible
+
+    legalToggleLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Previene el comportamiento de ancla por defecto
+            const targetId = this.dataset.target;
+            const targetSection = document.getElementById(targetId);
+
+            if (!targetSection) return;
+
+            // Ocultar cualquier otra sección legal que esté visible
+            legalSections.forEach(section => {
+                if (section !== targetSection && section.classList.contains('visible')) {
+                    section.classList.remove('visible');
+                    section.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            // Mostrar/ocultar la sección clickeada
+            const isNowVisible = targetSection.classList.toggle('visible');
+            targetSection.setAttribute('aria-hidden', !isNowVisible);
+
+            if (isNowVisible) {
+                currentlyVisibleLegalSection = targetSection;
+                // Smooth scroll hasta la sección
+                const mainNav = document.getElementById('mainNav');
+                const navHeight = mainNav ? mainNav.offsetHeight : 0;
+                const sectionTop = targetSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20; // 20px de margen extra
+
+                window.scrollTo({
+                    top: sectionTop,
+                    behavior: 'smooth'
+                });
+            } else {
+                currentlyVisibleLegalSection = null;
+            }
+        });
+    });
+
+    // Ocultar sección legal si se hace scroll hacia arriba y ya no está visible
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        if (!currentlyVisibleLegalSection) return;
+
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+        const sectionRect = currentlyVisibleLegalSection.getBoundingClientRect();
+
+        // Si se está haciendo scroll hacia arriba Y la parte inferior de la sección está por encima del viewport
+        if (st < lastScrollTop && sectionRect.bottom < 0) {
+            // O si la parte superior de la sección está muy por debajo del viewport (scroll rápido hacia abajo más allá de ella)
+            // Esto es más complejo de determinar de forma fiable para todos los casos de scroll rápido.
+            // Nos enfocaremos en el scroll hacia arriba y que la sección salga por la parte superior.
+
+            currentlyVisibleLegalSection.classList.remove('visible');
+            currentlyVisibleLegalSection.setAttribute('aria-hidden', 'true');
+            currentlyVisibleLegalSection = null;
+        }
+        lastScrollTop = st <= 0 ? 0 : st; // Para el manejo del scroll en la parte superior.
+    }, false);
+    // --- END: Legal Sections Toggle ---
+
+    // --- START: Collapsible H3 Sections ---
+    const collapsibleTriggers = document.querySelectorAll('.collapsible-trigger');
+    const activeCollapsibles = new Set(); // Para rastrear los H3 activos cuyo contenido está visible
+
+    collapsibleTriggers.forEach(trigger => {
+        const content = trigger.nextElementSibling; // Asume que el .collapsible-content sigue inmediatamente
+                                                  // O si usas la estructura de .collapsible-container:
+                                                  // const content = trigger.parentElement.querySelector('.collapsible-content');
+
+
+        if (content && content.classList.contains('collapsible-content')) {
+            // Inicialmente ocultar, el CSS ya lo hace, pero JS puede manejar aria
+            content.setAttribute('aria-hidden', 'true');
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.setAttribute('aria-controls', content.id || (content.id = `collapsible-content-${Math.random().toString(36).substr(2, 9)}`));
+
+
+            trigger.addEventListener('click', function() {
+                const isCurrentlyExpanded = this.classList.toggle('expanded');
+                content.classList.toggle('visible');
+                content.setAttribute('aria-hidden', !isCurrentlyExpanded);
+                this.setAttribute('aria-expanded', isCurrentlyExpanded);
+
+                if (isCurrentlyExpanded) {
+                    activeCollapsibles.add(trigger.parentElement); // Añadir el .collapsible-container
+                } else {
+                    activeCollapsibles.delete(trigger.parentElement);
+                }
+            });
+        }
+    });
+
+    // Ocultar contenido colapsable si su .collapsible-container sale de la vista al hacer scroll hacia arriba
+    let lastScrollTopCollapsible = 0;
+    const navHeightForCollapsible = document.getElementById('mainNav') ? document.getElementById('mainNav').offsetHeight : 0;
+
+    window.addEventListener('scroll', function() {
+        if (activeCollapsibles.size === 0) return;
+
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+
+        activeCollapsibles.forEach(container => {
+            const trigger = container.querySelector('.collapsible-trigger');
+            const content = container.querySelector('.collapsible-content');
+            if (!trigger || !content || !content.classList.contains('visible')) return;
+
+            const containerRect = container.getBoundingClientRect();
+
+            // Condición para ocultar:
+            // 1. Scroll hacia arriba (st < lastScrollTopCollapsible)
+            // 2. Y la parte INFERIOR del contenedor está ARRIBA del borde superior del viewport (ha salido completamente por arriba)
+            // O la parte SUPERIOR del contenedor está DEBAJO del borde superior de la barra de navegación (ha salido completamente por arriba, considerando la nav)
+            const containerBottomOutOfView = containerRect.bottom < 0;
+            const containerTopOutOfViewConsideringNav = containerRect.top < navHeightForCollapsible && containerRect.bottom < navHeightForCollapsible;
+
+
+            // Ocultar si el H3 (trigger) ya no está visible o muy poco visible
+            // Este es un enfoque más simple: si el H3 mismo (el trigger) está fuera de la vista
+            const triggerRect = trigger.getBoundingClientRect();
+            const triggerOutOfView = triggerRect.bottom < navHeightForCollapsible; // El trigger está completamente por encima de la nav
+
+
+            if (st < lastScrollTopCollapsible && triggerOutOfView) {
+                 if (trigger.classList.contains('expanded')) {
+                    trigger.classList.remove('expanded');
+                    content.classList.remove('visible');
+                    content.setAttribute('aria-hidden', 'true');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    activeCollapsibles.delete(container); // Eliminar de activos
+                }
+            }
+        });
+
+        lastScrollTopCollapsible = st <= 0 ? 0 : st;
+    }, false);
+    // --- END: Collapsible H3 Sections ---
 
 });
 // Smooth scrolling for anchor links (asegúrate que considera la altura de la nav fija)
@@ -222,48 +362,6 @@ function animateOnScroll() {
 window.addEventListener('scroll', animateOnScroll);
 // Run on page load to animate elements already in viewport
 animateOnScroll();
-
-// --- START: Read More Functionality ---
-// const TEXT_LENGTH_THRESHOLD = 100; // Characters
-
-// function setupReadMore() {
-//     const expandableParagraphs = document.querySelectorAll(
-//         '#nosotros .nosotros-parrafo, #nosotros ul li p, #talleres > p, .workshop-item > p:not(:last-child)' // Target specific paragraphs
-//     );
-
-//     expandableParagraphs.forEach(p => {
-//         Ensure we're not adding buttons to already very short paragraphs or those intended for buttons
-//         if (p.classList.contains('cta-button') || p.classList.contains('cta-button-small')) {
-//             return;
-//         }
-
-//         const fullText = p.textContent.trim();
-//         if (fullText.length > TEXT_LENGTH_THRESHOLD) {
-//             p.classList.add('collapsed-text');
-
-//             const readMoreBtn = document.createElement('button');
-//             readMoreBtn.textContent = 'Leer Más';
-//             readMoreBtn.classList.add('read-more-btn');
-//             const paragraphId = `expandable-${index}`; // Necesitarías dar un índice o ID único al párrafo
-//             p.id = paragraphId; // Asignar ID al párrafo
-//             readMoreBtn.setAttribute('aria-expanded', 'false');
-//             readMoreBtn.setAttribute('aria-controls', paragraphId);
-            
-//             Insert button after the paragraph
-//             p.parentNode.insertBefore(readMoreBtn, p.nextSibling);
-
-//             readMoreBtn.addEventListener('click', function() {
-//                 const isExpanded = p.classList.toggle('expanded');
-//                 this.textContent = isExpanded ? 'Leer Menos' : 'Leer Más';
-//                 this.setAttribute('aria-expanded', isExpanded); // Actualizar ARIA attribute
-//             });
-//         }
-//     });
-// }
-
-// setupReadMore();
-// --- END: Read More Functionality ---
-
 // --- START: Read More Functionality ---
 const TEXT_LENGTH_THRESHOLD = 200; // Reducido para probar más fácilmente
 const LINES_TO_SHOW_COLLAPSED = 4; // Coincide con -webkit-line-clamp y max-height
