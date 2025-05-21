@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.classList.toggle('active');
             const isExpanded = navMenu.classList.contains('active');
             navToggle.setAttribute('aria-expanded', isExpanded);
+            if (isExpanded) {
+                navToggle.setAttribute('aria-label', 'Cerrar menú de navegación');
+            } else {
+                navToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+            }
         });
     }
 
